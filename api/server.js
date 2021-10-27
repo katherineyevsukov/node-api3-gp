@@ -1,16 +1,16 @@
 const express = require('express'); // importing a CommonJS module
-const cors = require('cors');
-const morgan = require('morgan');
-const helmet = require('helmet');
+// const cors = require('cors');
+// const morgan = require('morgan');
+// const helmet = require('helmet');
 const hubsRouter = require('./hubs/hubs-router.js');
 
 const server = express();
 
 server.use(express.json());
 
-server.use(cors());
-server.use(helmet());
-server.use(morgan('dev'));
+// server.use(cors());
+// server.use(helmet());
+// server.use(morgan('dev'));
 
 // server.use(customMiddleware); // custom middleware being used
 

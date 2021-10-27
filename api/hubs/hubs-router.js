@@ -74,4 +74,3 @@ router.post('/:id/messages', checkHubId, (req, res, next) => {
 router.use(handleError);
 
 module.exports = router;
-
