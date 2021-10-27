@@ -1,5 +1,9 @@
 const express = require('express');
-const { handleError, checkHubId } = require('./hubs-middleware');
+const {
+  handleError,
+  checkHubId,
+  validateHub,
+} = require('./hubs-middleware');
 const Hubs = require('./hubs-model.js');
 const Messages = require('../messages/messages-model.js');
 
@@ -15,10 +19,10 @@ router.get('/', (req, res, next) => {
 });
 
 router.get('/:id', checkHubId, (req, res, next) => {
-  res.status(200).json(req.hub)
+  res.status(200).json(req.theHubFromTheDatabase)
 });
 
-router.post('/', (req, res, next) => {
+router.post('/', validateHub, (req, res, next) => {
   Hubs.add(req.body)
     .then(hub => {
       res.status(201).json(hub);
@@ -34,7 +38,7 @@ router.delete('/:id', checkHubId, (req, res, next) => {
     .catch(next);
 });
 
-router.put('/:id', checkHubId, (req, res, next) => {
+router.put('/:id', validateHub, checkHubId, (req, res, next) => {
   Hubs.update(req.params.id, req.body)
     .then(hub => {
       res.status(200).json(hub);
@@ -70,3 +74,4 @@ router.post('/:id/messages', checkHubId, (req, res, next) => {
 router.use(handleError);
 
 module.exports = router;
+
