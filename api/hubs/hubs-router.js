@@ -1,5 +1,5 @@
 const express = require('express');
-
+const { handleError } = require('./hubs-middleware');
 const Hubs = require('./hubs-model.js');
 const Messages = require('../messages/messages-model.js');
 
@@ -116,5 +116,10 @@ router.post('/:id/messages', (req, res) => {
       });
     });
 });
+
+//AT THE END
+//this error handling will trap errors
+//thrown BEFORE this middleware is plugged
+router.use(handleError);
 
 module.exports = router;
